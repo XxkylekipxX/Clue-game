@@ -1,0 +1,47 @@
+import random
+
+# Define characters, weapons, and rooms
+characters = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Colonel Mustard', 'Mrs. White']
+weapons = ['Knife', 'Candlestick', 'Revolver', 'Rope', 'Lead Pipe', 'Wrench']
+rooms = ['Hall', 'Lounge', 'Dining Room', 'Kitchen', 'Ballroom', 'Conservatory', 'Billiard Room', 'Library', 'Study']
+
+# Randomly select the solution
+murderer = random.choice(characters)
+weapon = random.choice(weapons)
+crime_scene = random.choice(rooms)
+
+# Remaining cards to be distributed among players
+remaining_characters = [char for char in characters if char != murderer]
+remaining_weapons = [w for w in weapons if w != weapon]
+remaining_rooms = [r for r in rooms if r != crime_scene]
+
+# Create a deck of remaining cards
+deck = remaining_characters + remaining_weapons + remaining_rooms
+random.shuffle(deck)
+
+# Ask players for their guesses
+def get_guess():
+    print("\nMake your guess!")
+    guess_character = input(f"Choose a character from {characters}: ")
+    guess_weapon = input(f"Choose a weapon from {weapons}: ")
+    guess_room = input(f"Choose a room from {rooms}: ")
+    return guess_character, guess_weapon, guess_room
+
+# Main game loop
+def main():
+    print("Welcome to the game of Clue!")
+    
+    while True:
+        character, weapon_guess, room = get_guess()
+        
+        if character == murderer and weapon_guess == weapon and room == crime_scene:
+            print(f"\nCongratulations! You've solved the mystery. It was {murderer} with the {weapon} in the {crime_scene}!")
+            break
+        else:
+            print("\nYour guess is incorrect. Try again.")
+            print(f"{character} is {'correct' if character == murderer else 'incorrect'}.")
+            print(f"The weapon {weapon_guess} is {'correct' if weapon_guess == weapon else 'incorrect'}.")
+            print(f"The room {room} is {'correct' if room == crime_scene else 'incorrect'}.")
+
+if __name__ == "__main__":
+    main()
